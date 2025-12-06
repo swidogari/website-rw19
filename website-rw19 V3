@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rukun Warga 19 Cotton Field</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+    header {
+      background: #2c3e50; color: white; padding: 18px;
+      text-align: center; display: flex; align-items: center;
+      justify-content: center; gap: 18x; flex-wrap: wrap;
+    }
+    header img { height: 140px; width: 140px; border-radius: 100%; object-fit: cover;}
+    nav { background: #34495e; display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { color: white; padding: 14px 20px; text-decoration: none; display: block; }
+    nav a:hover { background: #1abc9c; }
+    section { padding: 20px; display: none; }
+    section.active {
+      display: block; background: white; margin: 30px;
+      border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    footer {  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 10px 0;}
+
+    /* Dashboard admin */
+    .admin-panel { display: flex; flex-wrap: wrap; gap: 20px; }
+    .admin-card {
+      flex: 1 1 200px; background: #ecf0f1; padding: 15px;
+      border-radius: 8px; box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    }
+    .admin-card h3 { margin-top: 0; }
+
+    /* Responsif */
+    @media (max-width: 600px) {
+      header { flex-direction: column; text-align: center; }
+      header img { height: 60px; width: 60px; }
+      nav a { padding: 10px; font-size: 0.9em; }
+      section { margin: 10px; padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logorw19.png" alt="Logo RW 19">
+    <div>
+      <h1>Rukun Warga 19 Cotton Field</h1>
+	  <h1>Cibubur Country</h1>
+      <p>Portal Informasi Warga</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#" onclick="showTab('pengumuman')">Pengumuman</a>
+    <a href="#" onclick="showTab('ipl')">IPL</a>
+    <a href="#" onclick="showTab('laporan')">Laporan Pengaduan</a>
+    <a href="#" onclick="showTab('informasi')">Informasi</a>
+    <a href="#" onclick="showTab('admin')">Admin</a>
+  </nav>
+
+  <section id="pengumuman" class="active">
+    <h2>Pengumuman</h2>
+    <p>Tempat untuk menampilkan pengumuman terbaru dari RW 19.</p>
+  </section>
+
+  <section id="ipl">
+  <h2>Informasi Pembayaran IPL</h2>
+  <p>Data iuran pemeliharaan lingkungan (IPL) warga dapat ditampilkan di sini.</p>
+
+  <div class="ipl-menu">
+    <a href="https://forms.gle/VTApxZAiN8B65kjX6" target="_blank" class="btn">
+      🧾 Lapor Pembayaran
+    </a>
+
+    <div class="status-box">
+      <h3>🔍 Cek Status Pembayaran</h3>
+      <form id="statusForm" onsubmit="checkStatus(event)">
+        <input type="text" id="idWarga" name="idWarga" placeholder="Masukkan ID Warga" required>
+        <button type="submit" class="btn">Cek</button>
+      </form>
+      <p id="statusResult"></p>
+    </div>
+	
+    <div class="rekap-box">
+      <h3>📊 Rekapitulasi IPL RW</h3>
+      <iframe 
+        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vXXXXXXXXXXXXXXX/pubchart?oid=1234567890&amp;format=interactive" 
+        width="100%" 
+        height="400" 
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  #ipl {
+    background: #f9fafc;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 40px auto;
+    font-family: "Segoe UI", sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  #ipl h2 {
+    text-align: center;
+    color: #2c3e50;
+  }
+
+  #ipl p {
+    text-align: center;
+    color: #555;
+  }
+
+  .ipl-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-block;
+    background: #0078d7;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .btn:hover {
+    background: #005fa3;
+  }
+
+  .status-box, .rekap-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .status-box input {
+    width: 70%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  #statusResult {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+
+  @media (max-width: 600px) {
+    .status-box input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+</style>
+
+<script>
+  function checkStatus(event) {
+    event.preventDefault();
+    const id = document.getElementById('idWarga').value.trim();
+    if (!id) return;
+    document.getElementById('statusResult').textContent = 
+      `Status pembayaran untuk ID ${id}: Lunas ✅`;
+  }
+</script>
+
+  <section id="laporan">
+    <h2>Laporan Pengaduan</h2>
+    <form>
+      <label>Nama:</label><br>
+      <input type="text" name="nama" required><br><br>
+      <label>Isi Laporan:</label><br>
+      <textarea name="laporan" rows="5" required></textarea><br><br>
+      <button type="submit">Kirim</button>
+    </form>
+  </section>
+
+  <section id="informasi">
+    <h2>Informasi Umum</h2>
+    <p>Berisi data kontak pengurus RW, jadwal kegiatan, dan informasi penting lainnya.</p>
+  </section>
+
+  <!-- Dashboard Admin -->
+  <section id="admin">
+    <h2>Dashboard Admin</h2>
+    <div id="loginForm">
+      <p>Masukkan kata sandi untuk masuk ke dashboard:</p>
+      <input type="password" id="adminPass" placeholder="Password">
+      <button onclick="loginAdmin()">Masuk</button>
+      <p id="loginMsg" style="color:red;"></p>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+      <div class="admin-panel">
+        <div class="admin-card">
+          <h3>Kelola Pengumuman</h3>
+          <p>Tambah, ubah, atau hapus pengumuman warga.</p>
+        </div>
+        <div class="admin-card">
+          <h3>Data IPL</h3>
+          <p>Perbarui status pembayaran IPL warga.</p>
+        </div>
+        <div class="admin-card">
+          <h3>Laporan Masuk</h3>
+          <p>Tinjau laporan pengaduan dari warga.</p>
+        </div>
+      </div>
+	  <!-- Form Kelola Pengumuman -->
+    <div class="pengumuman-form">
+      <h3>📝 Kelola Pengumuman Warga</h3>
+      <form id="formPengumuman" onsubmit="simpanPengumuman(event)" style="display:flex; flex-direction:column; gap:10px;">
+        <!--<input type="hidden" id="editIndex"> -->
+        <label>Judul Pengumuman:</label>
+        <input type="text" id="judul" required>
+
+        <label for="isi">Isi Pengumuman:</label>
+		<textarea id="isi" rows="4" required></textarea>
+
+        <button type="submit">💾 Simpan</button>
+      </form>
+
+      <h4>📋 Daftar Pengumuman</h4>
+      <table id="tabelPengumuman">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Judul</th>
+            <th>Isi</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+   <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxxxx/exec"; // Ganti dengan URL Web App kamu
+    let pengumumanList = [];
+
+    async function simpanPengumuman(event) {
+      event.preventDefault();
+      const judul = document.getElementById("judul").value.trim();
+      const isi = document.getElementById("isi").value.trim();
+      const editIndex = document.getElementById("editIndex").value;
+
+      try {
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: new URLSearchParams({
+            action: editIndex ? "update" : "add",
+            index: editIndex,
+            judul,
+            isi
+          })
+        });
+        const data = await res.json();
+        alert(data.message || "Data berhasil disimpan!");
+        document.getElementById("formPengumuman").reset();
+        document.getElementById("editIndex").value = "";
+        loadPengumuman();
+      } catch (err) {
+        alert("⚠️ Gagal menyimpan data ke Google Sheets.");
+      }
+    }
+
+    async function loadPengumuman() {
+      try {
+        const res = await fetch(`${scriptURL}?action=get`);
+        const data = await res.json();
+        pengumumanList = data || [];
+        renderTabel();
+      } catch (err) {
+        console.error("Gagal memuat data:", err);
+      }
+    }
+
+    function renderTabel() {
+      const tbody = document.querySelector("#tabelPengumuman tbody");
+      tbody.innerHTML = "";
+      pengumumanList.forEach((item, index) => {
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.judul}</td>
+            <td>${item.isi}</td>
+            <td>
+              <button class="action-btn edit" onclick="editPengumuman(${index})">Ubah</button>
+              <button class="action-btn" onclick="hapusPengumuman(${index})">Hapus</button>
+            </td>
+          </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function editPengumuman(index) {
+      const item = pengumumanList[index];
+      document.getElementById("judul").value = item.judul;
+      document.getElementById("isi").value = item.isi;
+      document.getElementById("editIndex").value = index;
+    }
+
+    async function hapusPengumuman(index) {
+      if (!confirm("Yakin ingin menghapus pengumuman ini?")) return;
+      try {
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: new URLSearchParams({
+            action: "delete",
+            index
+          })
+        });
+        const data = await res.json();
+        alert(data.message || "Data berhasil dihapus!");
+        loadPengumuman();
+      } catch (err) {
+        alert("⚠️ Gagal menghapus data.");
+      }
+    }
+
+    // Muat data saat halaman dibuka
+    loadPengumuman();
+  </script>
+	
+	
+  <script>
+    let pengumumanList = [];
+
+    function renderTabel() {
+      const tbody = document.querySelector("#tabelPengumuman tbody");
+      tbody.innerHTML = "";
+      pengumumanList.forEach((item, index) => {
+        const row = `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.judul}</td>
+            <td>${item.isi}</td>
+            <td>
+              <button class="action-btn edit" onclick="editPengumuman(${index})">Ubah</button>
+              <button class="action-btn" onclick="hapusPengumuman(${index})">Hapus</button>
+            </td>
+          </tr>`;
+        tbody.innerHTML += row;
+      });
+    }
+
+    function simpanPengumuman(event) {
+      event.preventDefault();
+      const judul = document.getElementById("judul").value.trim();
+      const isi = document.getElementById("isi").value.trim();
+      const editIndex = document.getElementById("editIndex").value;
+
+      if (editIndex) {
+        pengumumanList[editIndex] = { judul, isi };
+        document.getElementById("editIndex").value = "";
+      } else {
+        pengumumanList.push({ judul, isi });
+      }
+
+      document.getElementById("formPengumuman").reset();
+      renderTabel();
+    }
+
+    function editPengumuman(index) {
+      const item = pengumumanList[index];
+      document.getElementById("judul").value = item.judul;
+      document.getElementById("isi").value = item.isi;
+      document.getElementById("editIndex").value = index;
+    }
+
+    function hapusPengumuman(index) {
+      if (confirm("Yakin ingin menghapus pengumuman ini?")) {
+        pengumumanList.splice(index, 1);
+        renderTabel();
+      }
+    }
+  </script>
+	  
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Rukun Warga 19 Cotton Field</p>
+  </footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function loginAdmin() {
+      const pass = document.getElementById('adminPass').value;
+      const msg = document.getElementById('loginMsg');
+      if (pass === 'rw19admin') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+      } else {
+        msg.textContent = 'Password salah!';
+      }
+    }
+  </script>
+  <script>
+  async function checkStatus(event) {
+    event.preventDefault();
+    const id = document.getElementById('idWarga').value.trim();
+    const result = document.getElementById('statusResult');
+    result.textContent = "Memeriksa data...";
+
+    try {
+      const res = await fetch(`https://script.google.com/macros/s/AKfycbxxxx/exec?id=${id}`);
+      const data = await res.json();
+
+      if (data.error) {
+        result.textContent = "❌ ID tidak ditemukan.";
+      } else {
+        result.textContent = `✅ ${data.nama} - Status: ${data.status} (Tanggal: ${data.tanggal || '-'})`;
+      }
+    } catch (err) {
+      result.textContent = "⚠️ Terjadi kesalahan saat mengambil data.";
+    }
+  }
+	</script>
+</body>
+</html>
