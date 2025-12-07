@@ -132,5 +132,43 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function loginAdmin() {
+      const pass = document.getElementById('adminPass').value;
+      const msg = document.getElementById('loginMsg');
+      if (pass === 'rw19admin') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+      } else {
+        msg.textContent = 'Password salah!';
+      }
+    }
+  </script>
+  <script>
+  async function checkStatus(event) {
+    event.preventDefault();
+    const id = document.getElementById('idWarga').value.trim();
+    const result = document.getElementById('statusResult');
+    result.textContent = "Memeriksa data...";
+
+    try {
+      const res = await fetch(`https://script.google.com/macros/s/AKfycbyw3-aFdIPaO-Bo_Au7fpoLaknhbsjcCqK7rhRxbzuyBHYLXtNQqy8huNNYkoWVtXh7eA/exec{AKfycbyw3-aFdIPaO-Bo_Au7fpoLaknhbsjcCqK7rhRxbzuyBHYLXtNQqy8huNNYkoWVtXh7eA}`);
+      const data = await res.json();
+
+      if (data.error) {
+        result.textContent = "❌ ID tidak ditemukan.";
+      } else {
+        result.textContent = `✅ ${data.nama} - Status: ${data.status} (Tanggal: ${data.tanggal || '-'})`;
+      }
+    } catch (err) {
+      result.textContent = "⚠️ Terjadi kesalahan saat mengambil data.";
+    }
+  }
+	</script>
 </body>
 </html>
