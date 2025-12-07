@@ -2,6 +2,10 @@ body {
   font-family: Arial, sans-serif; 
   margin: 0; 
   background: #f5f5f5; 
+  /* Tambahkan padding-bottom yang sedikit lebih besar dari tinggi footer */
+  padding-bottom: 60px; /* Gunakan nilai yang lebih besar dari tinggi footer (misalnya 40px + 20px) */
+    /* Pastikan tinggi minimal body cukup untuk seluruh konten */
+  min-height: 100vh;
 }
 
 header {
@@ -127,4 +131,5 @@ footer {
 
 .status-box, .rekap-box {
   
+
 
