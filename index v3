@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rukun Warga 19 Cotton Field</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="img/logorw19.png" alt="Logo RW 19">
+    <div>
+      <h1>Rukun Warga 19 Cotton Field</h1>
+      <h1>Cibubur Country</h1>
+      <p>Portal Informasi Warga</p>
+    </div>
+  </header>
+	
+  <nav>
+    <a href="#" onclick="showTab('pengumuman')">Pengumuman</a>
+	<a href="#" onclick="showTab('galery')">Galery</a>
+    <a href="#" onclick="showTab('ipl')">IPL</a>
+    <a href="#" onclick="showTab('laporan')">Laporan Pengaduan</a>
+    <a href="#" onclick="showTab('informasi')">Informasi</a>
+    <a href="#" onclick="showTab('admin')">Admin</a>
+  </nav>
+
+  <section id="pengumuman" class="active">
+    <h2>📢 Pengumuman</h2>
+	
+	<div class="pengumuman-card fade-in1">
+		  <div class="slideshow-container"> 
+			<img src="img/kerjabakti.jpg" class="undangan-kerja-bakti active" alt="Foto Kerja Bakti 1">
+
+		</div> 
+		<h3>Undangan Kerja Bakti & Perkenalan Pengurus Baru RW 19</h3>
+		<button class="toggle-btn" onclick="toggleInfo(this)">Lihat Detail</button>
+
+		<div class="pengumuman-detail">
+			<p><strong>Agenda:</strong></p>
+			<ul>
+				<li>Hari/Tanggal: Minggu, 14 Desember 2025.</li>
+				<li>Tempat: Balai RW 19 - Cotton Field.</li>
+				<li>Waktu: 07.00 - Selesai.</li>
+			</ul>
+
+			<p><strong>Mari hadir dan berpartisipasi demi ingkungan RW 19 yang semakin guyub dan kompak. </strong></p>
+		</div>
+		<script>
+
+		function toggleInfo(button) {
+			const detail = button.nextElementSibling;
+			const isVisible = detail.style.display === "block";
+			detail.style.display = isVisible ? "none" : "block";
+			button.textContent = isVisible ? "Lihat Detail" : "Tutup Detail";
+		}
+		</script>
+
+	</div>
+	<div class="pengumuman-card fade-in2">
+		 <div class="slideshow-container">
+			<img src="img/serahterima1.jpg" class="pengumuman-foto active" alt="Foto Serah Terima 1">
+			<img src="img/serahterima2.jpg" class="pengumuman-foto" alt="Foto Serah Terima 2">
+			<img src="img/serahterima3.jpg" class="pengumuman-foto" alt="Foto Serah Terima 3">
+			<img src="img/serahterima4.jpg" class="pengumuman-foto" alt="Foto Serah Terima 4">
+		</div>
+
+		<h3>Serah Terima Jabatan Pengurus RW19 Cotton Field 2025</h3>
+		<button class="toggle-btn" onclick="toggleInfo(this)">Lihat Detail</button>
+
+		<div class="pengumuman-detail">
+			<p><strong>Agenda:</strong></p>
+			<ul>
+				<li>Serah terima jabatan ketua RW lama kepada ketua RW baru.</li>
+				<li>Pembacaan laporan pertanggungjawaban pengurus lama.</li>
+				<li>Sambutan dan rencana kerja pengurus baru.</li>
+			</ul>
+
+			<p><strong>Kami ucapkan terima kasih yang sedalam-dalam nya kepada pengurus lama atas dedikasinya. </strong></p>
+			
+		</div>
+		<script>
+		let slideIndex = 0;
+		const slides = document.querySelectorAll('.pengumuman-foto');
+
+		function showSlides() {
+			slides.forEach((slide, i) => {
+				slide.classList.remove('active');
+			});
+			slideIndex = (slideIndex + 1) > slides.length ? 1 : slideIndex + 1;
+			slides[slideIndex - 1].classList.add('active');
+			setTimeout(showSlides, 3000); // Ganti foto setiap 4 detik
+		}
+
+		document.addEventListener("DOMContentLoaded", showSlides);
+
+		function toggleInfo(button) {
+			const detail = button.nextElementSibling;
+			const isVisible = detail.style.display === "block";
+			detail.style.display = isVisible ? "none" : "block";
+			button.textContent = isVisible ? "Lihat Detail" : "Tutup Detail";
+		}
+		</script>
+	</div>
+	
+  </section>
+  
+  <section id="galery">
+    <h2>Galery</h2>
+    <p>Dokumentasi kegiatan RW 19.</p>
+  </section>
+
+  <section id="ipl">
+    <h2>Informasi Pembayaran IPL</h2>
+    <p>Data iuran pemeliharaan lingkungan (IPL) warga dapat ditampilkan di sini.</p>
+
+    <div class="ipl-menu">
+      <a href="https://docs.google.com/forms/d/e/1FAlpQLSePTL5jUKm_ZfZl3cWB3xmDrJ6ysWDxPlllH83JQ7HOpVOrxQ/viewform" target="_blank" class="btn">🧾 Lapor Pembayaran</a>
+
+      <div class="status-box">
+        <h3>🔍 Cek Status Pembayaran</h3>
+        <form id="statusForm" onsubmit="checkStatus(event)">
+          <input type="text" id="idWarga" name="idWarga" placeholder="Masukkan ID Warga" required>
+          <button type="submit" class="btn">Cek</button>
+        </form>
+        <p id="statusResult"></p>
+      </div>
+
+      <div class="rekap-box">
+        <h3>📊 Rekapitulasi IPL RW</h3>
+        <iframe 
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vXXXXXXXXXXXXXXX/pubchart?oid=1234567890&amp;format=interactive"
+          width="100%" 
+          height="400" 
+          frameborder="0">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="laporan">
+    <h2>Laporan Pengaduan</h2>
+    <form>
+      <label>Nama:</label><br>
+      <input type="text" name="nama" required><br><br>
+      <label>Isi Laporan:</label><br>
+      <textarea name="laporan" rows="5" required></textarea><br><br>
+      <button type="submit">Kirim</button>
+    </form>
+  </section>
+  
+  <section id="informasi">
+    <h2>Informasi Umum</h2>
+	<!-- <p>Berisi data kontak pengurus RW, jadwal kegiatan, dan informasi penting lainnya.</p> -->
+	
+	<!-- Tombol tetap di atas -->
+	<div id="button-group" style="position:sticky; top:0; background:#fff; padding:10px; text-align:center; border-bottom:1px solid #ccc;">
+		<button onclick="tampilkanKonten('struktur-organisasi')">Struktur Organisasi</button>
+		<button onclick="tampilkanKonten('sop')">SOP</button>
+		<button onclick="tampilkanKonten('informasi-jasa')">Informasi Jasa</button>
+	</div>
+
+	<!-- Area konten -->
+	<div id="konten-area" style="margin-top:20px; text-align:center;">
+		<div id="informasi-jasa" class="konten" style="display:none;">
+			<iframe src="https://docs.google.com/spreadsheets/d/ID_SHEET_ANDA/pubhtml?widget=true&amp;headers=false" 
+					width="100%" height="400px"></iframe>
+		</div>
+
+		<div id="struktur-organisasi" class="konten" style="display:none;">
+			<img src="img/so.png" alt="Struktur Organisasi" style="max-width:90%; border-radius:8px;">
+		</div>
+
+		<div id="sop" class="konten" style="display:none;">
+			<p>Hubungi kami di: <strong>rw19.cottonfield2025@gmail.com</strong></p>
+		</div>
+		<script>
+		function tampilkanKonten(id) {
+		// Sembunyikan semua konten
+		const semuaKonten = document.querySelectorAll('.konten');
+			semuaKonten.forEach(k => k.style.display = 'none');
+
+		// Tampilkan konten yang dipilih
+			document.getElementById(id).style.display = 'block';
+			}
+		</script>
+	</div>
+</section>
+
+  <section id="admin">
+    <h2>Dashboard Admin</h2>
+    <div id="loginForm">
+      <p>Masukkan kata sandi untuk masuk ke dashboard:</p>
+      <input type="password" id="adminPass" placeholder="Password">
+      <button onclick="loginAdmin()">Masuk</button>
+      <p id="loginMsg" style="color:red;"></p>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+      <div class="admin-panel">
+        <div class="admin-card">
+          <h3>Kelola Pengumuman</h3>
+          <p>Tambah, ubah, atau hapus pengumuman warga.</p>
+        </div>
+        <div class="admin-card">
+          <h3>Data IPL</h3>
+          <p>Perbarui status pembayaran IPL warga.</p>
+        </div>
+        <div class="admin-card">
+          <h3>Laporan Masuk</h3>
+          <p>Tinjau laporan pengaduan dari warga.</p>
+        </div>
+      </div>
+
+      <div class="pengumuman-form">
+		<h3>📝 Kelola Pengumuman Warga</h3>
+		<form id="formPengumuman" onsubmit="simpanPengumuman(event)">
+			<input type="hidden" id="editIndex">
+			<div class="form-group">
+			<label for="judul">Judul Pengumuman:</label>
+			<input type="text" id="judul" required>
+		</div>
+
+		<div class="form-group">
+		<label for="isi">Isi Pengumuman:</label>
+		<textarea id="isi" rows="4" required></textarea>
+		</div>
+
+		<div class="form-group">
+		<button type="submit">💾 Simpan</button>
+		</div>
+		</form>
+	<!-- </div> -->
+
+        <h4>📋 Daftar Pengumuman</h4>
+        <table id="tabelPengumuman">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Judul</th>
+              <th>Isi</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+	<p>© 2025 Rukun Warga 19 Cotton Field</p>
+	</footer>
+	
+  <script src="script.js"></script>
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function loginAdmin() {
+      const pass = document.getElementById('adminPass').value;
+      const msg = document.getElementById('loginMsg');
+      if (pass === 'rw19admin') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+      } else {
+        msg.textContent = 'Password salah!';
+      }
+    }
+  </script>
+  <script>
+  async function checkStatus(event) {
+    event.preventDefault();
+    const id = document.getElementById('idWarga').value.trim();
+    const result = document.getElementById('statusResult');
+    result.textContent = "Memeriksa data...";
+
+    try {
+      const res = await fetch(`https://script.google.com/macros/s/AKfycbyw3-aFdIPaO-Bo_Au7fpoLaknhbsjcCqK7rhRxbzuyBHYLXtNQqy8huNNYkoWVtXh7eA/exec{AKfycbyw3-aFdIPaO-Bo_Au7fpoLaknhbsjcCqK7rhRxbzuyBHYLXtNQqy8huNNYkoWVtXh7eA}`);
+      const data = await res.json();
+
+      if (data.error) {
+        result.textContent = "❌ ID tidak ditemukan.";
+      } else {
+        result.textContent = `✅ ${data.nama} - Status: ${data.status} (Tanggal: ${data.tanggal || '-'})`;
+      }
+    } catch (err) {
+      result.textContent = "⚠️ Terjadi kesalahan saat mengambil data.";
+    }
+  }
+	</script>
+		
+</body>
+</html>
